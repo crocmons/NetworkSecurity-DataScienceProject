@@ -1,0 +1,16 @@
+pandas
+numpy
+python-dotenv
+# pymongo  pip install --upgrade cryptography
+certifi
+pymongo[srv]
+scikit-learn
+PyYAML
+pymongo
+cryptography
+mlflow==2.22.1
+dagshub
+fastapi
+uvicorn
+python-multipart
+-e .

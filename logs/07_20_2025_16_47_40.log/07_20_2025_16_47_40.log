@@ -1,0 +1,35 @@
+[2025-07-20 16:48:23,486] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2025-07-20 16:48:23,505] 107 dagshub - INFO - Accessing as soishi570
+[2025-07-20 16:48:24,943] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/soishi570/NetworkSecurity-DataScienceProject "HTTP/1.1 200 OK"
+[2025-07-20 16:48:25,599] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2025-07-20 16:48:25,601] 107 dagshub - INFO - Initialized MLflow to track repo "soishi570/NetworkSecurity-DataScienceProject"
+[2025-07-20 16:48:25,602] 107 dagshub - INFO - Repository soishi570/NetworkSecurity-DataScienceProject initialized!
+[2025-07-20 16:51:18,006] 46 root - INFO - Started data ingestion
+[2025-07-20 16:51:25,049] 63 root - INFO - Performed train test split on the dataframe
+[2025-07-20 16:51:25,049] 65 root - INFO - Exited split_data_as_train_test method of Data Ingestion class
+[2025-07-20 16:51:25,049] 72 root - INFO - Exporting train and test file path
+[2025-07-20 16:51:25,127] 77 root - INFO - Exported train and test file path
+[2025-07-20 16:51:25,127] 49 root - INFO - Data Ingestion Completed and the artifact DataIngestionArtifact(trained_file_path='Artifacts\\07_20_2025_16_47_45\\data_ingestion\\ingested\\train.csv', test_file_path='Artifacts\\07_20_2025_16_47_45\\data_ingestion\\ingested\\test.csv')
+[2025-07-20 16:51:25,127] 57 root - INFO - Started data validation
+[2025-07-20 16:51:25,163] 35 root - INFO - required number of columns: 2
+[2025-07-20 16:51:25,163] 36 root - INFO - Dataframe has columns:31
+[2025-07-20 16:51:25,163] 35 root - INFO - required number of columns: 2
+[2025-07-20 16:51:25,163] 36 root - INFO - Dataframe has columns:31
+[2025-07-20 16:51:25,328] 60 root - INFO - Data Validation Completed and the artifact DataValidationArtifact(validation_status=None, valid_train_file_path='Artifacts\\07_20_2025_16_47_45\\data_ingestion\\ingested\\train.csv', valid_test_file_path='Artifacts\\07_20_2025_16_47_45\\data_ingestion\\ingested\\test.csv', invalid_train_file_path=None, invalid_test_file_path=None, drift_report_file_path='Artifacts\\07_20_2025_16_47_45\\data_validation\\drift_report\\report.yaml')
+[2025-07-20 16:51:25,328] 68 root - INFO - Started data transformation
+[2025-07-20 16:51:25,328] 56 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[2025-07-20 16:51:25,328] 58 root - INFO - Starting data transformation
+[2025-07-20 16:51:25,351] 46 root - INFO - Entered get_data_transformed_object method of transformation class.
+[2025-07-20 16:51:25,351] 49 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[2025-07-20 16:51:25,367] 47 root - INFO - Entered the save object method of MainUtils class
+[2025-07-20 16:51:25,369] 51 root - INFO - Exited the save_obj method of mainutils class
+[2025-07-20 16:51:25,369] 47 root - INFO - Entered the save object method of MainUtils class
+[2025-07-20 16:51:25,377] 51 root - INFO - Exited the save_obj method of mainutils class
+[2025-07-20 16:51:25,379] 71 root - INFO - Data Transformation Completed and the artifact DataTransformationArtifact(transformed_object_file_path='Artifacts\\07_20_2025_16_47_45\\data_transformation\\transformed_object\\preprocessing.pkl', transformed_train_file_path='Artifacts\\07_20_2025_16_47_45\\data_transformation\\transformed\\train.npy', transformed_test_file_path='Artifacts\\07_20_2025_16_47_45\\data_transformation\\transformed\\test.npy')
+[2025-07-20 16:51:25,379] 79 root - INFO - Started model trainer
+[2025-07-20 17:23:01,686] 47 root - INFO - Entered the save object method of MainUtils class
+[2025-07-20 17:23:01,697] 51 root - INFO - Exited the save_obj method of mainutils class
+[2025-07-20 17:23:01,697] 47 root - INFO - Entered the save object method of MainUtils class
+[2025-07-20 17:23:01,700] 51 root - INFO - Exited the save_obj method of mainutils class
+[2025-07-20 17:23:01,700] 161 root - INFO - Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='Artifacts\\07_20_2025_16_47_45\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9907829433809379, precision_score=0.9902814334885605, recall_score=0.9912849614916903), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.974817221770918, precision_score=0.9685230024213075, recall_score=0.9811937857726901))
+[2025-07-20 17:23:01,707] 82 root - INFO - Model Trainer Completed and the artifact ModelTrainerArtifact(trained_model_file_path='Artifacts\\07_20_2025_16_47_45\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9907829433809379, precision_score=0.9902814334885605, recall_score=0.9912849614916903), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.974817221770918, precision_score=0.9685230024213075, recall_score=0.9811937857726901))
