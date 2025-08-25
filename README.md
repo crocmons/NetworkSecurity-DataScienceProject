@@ -74,6 +74,8 @@ This project demonstrates how to manage the lifecycle of a machine learning proj
 
 ### For Adding DVC Pipeline Stages :
 
+dvc init
+
 dvc stage add -n data_ingestion \
     -d networksecurity/components/data_ingestion.py \
     -d networksecurity/entity/config_entity.py \
