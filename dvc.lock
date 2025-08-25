@@ -1,0 +1,157 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python -c "from networksecurity.entity.config_entity import TrainingPipelineConfig,
+      DataIngestionConfig; from networksecurity.components.data_ingestion import DataIngestion;
+      cfg=TrainingPipelineConfig(); DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion();"
+    deps:
+    - path: networksecurity/components/data_ingestion.py
+      hash: md5
+      md5: f01878612537e46281c7d5c96e53da4c
+      size: 3665
+    - path: networksecurity/constants/training_pipeline/__init__.py
+      hash: md5
+      md5: fa270df3a5b07f2d16104b2c165f2a28
+      size: 2194
+    - path: networksecurity/entity/config_entity.py
+      hash: md5
+      md5: 7b4391ac0d93667be216cc79c468cf2a
+      size: 4260
+    - path: networksecurity/utils/common.py
+      hash: md5
+      md5: 73ea3700ef4ccaaa50dd0b437518a1fa
+      size: 3476
+    outs:
+    - path: Artifacts/data_ingestion
+      hash: md5
+      md5: 352e70ffd65c03f551ca9fd593889281.dir
+      size: 1600834
+      nfiles: 3
+  data_validation:
+    cmd: python -c "from networksecurity.entity.config_entity import TrainingPipelineConfig,
+      DataValidationConfig, DataIngestionConfig; from networksecurity.components.data_ingestion
+      import DataIngestion; from networksecurity.components.data_validation import
+      DataValidation; cfg=TrainingPipelineConfig(); di=DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion();
+      DataValidation(di, DataValidationConfig(cfg)).initiate_data_validation();"
+    deps:
+    - path: Artifacts/data_ingestion
+      hash: md5
+      md5: 20d091f76851b45d3f9c8cbaf3b14854.dir
+      size: 1600834
+      nfiles: 3
+    - path: data_schema/schema.yaml
+      hash: md5
+      md5: c6c32b337e0ff6b42db830384b0e0685
+      size: 1320
+    - path: networksecurity/components/data_validation.py
+      hash: md5
+      md5: 86eba05705fdd0ae7deaf5fd7d779e4f
+      size: 5074
+    - path: networksecurity/constants/training_pipeline/__init__.py
+      hash: md5
+      md5: fa270df3a5b07f2d16104b2c165f2a28
+      size: 2194
+    - path: networksecurity/entity/config_entity.py
+      hash: md5
+      md5: 7b4391ac0d93667be216cc79c468cf2a
+      size: 4260
+    - path: networksecurity/utils/common.py
+      hash: md5
+      md5: 73ea3700ef4ccaaa50dd0b437518a1fa
+      size: 3476
+    outs:
+    - path: Artifacts/data_validation
+      hash: md5
+      md5: d4ca06f55ea795d63475a28ea14630cc.dir
+      size: 802615
+      nfiles: 3
+  data_transformation:
+    cmd: python -c "from networksecurity.entity.config_entity import TrainingPipelineConfig,
+      DataIngestionConfig, DataValidationConfig, DataTransformationConfig; from networksecurity.components.data_ingestion
+      import DataIngestion; from networksecurity.components.data_validation import
+      DataValidation; from networksecurity.components.data_transformation import DataTransformation;
+      cfg=TrainingPipelineConfig(); di=DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion();
+      dv=DataValidation(di, DataValidationConfig(cfg)).initiate_data_validation();
+      DataTransformation(dv, DataTransformationConfig(cfg)).initiate_data_transformation();"
+    deps:
+    - path: Artifacts/data_validation
+      hash: md5
+      md5: 37711c6caf1c906637414be9c958be36.dir
+      size: 802671
+      nfiles: 3
+    - path: networksecurity/components/data_transformation.py
+      hash: md5
+      md5: 8b01eb333d51fa51a97b45a48c8b36bc
+      size: 4902
+    - path: networksecurity/constants/training_pipeline/__init__.py
+      hash: md5
+      md5: fa270df3a5b07f2d16104b2c165f2a28
+      size: 2194
+    - path: networksecurity/entity/config_entity.py
+      hash: md5
+      md5: 7b4391ac0d93667be216cc79c468cf2a
+      size: 4260
+    - path: networksecurity/utils/common.py
+      hash: md5
+      md5: 73ea3700ef4ccaaa50dd0b437518a1fa
+      size: 3476
+    outs:
+    - path: Artifacts/data_transformation
+      hash: md5
+      md5: c4c86efcc7d9798f38bd77fc350a0181.dir
+      size: 5131009
+      nfiles: 3
+    - path: final_model/preprocessor.pkl
+      hash: md5
+      md5: 93dc67d26ef4ec5db238cbcb4a64b829
+      size: 2389113
+  model_trainer:
+    cmd: python -c "from networksecurity.entity.config_entity import TrainingPipelineConfig,
+      DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig;
+      from networksecurity.components.data_ingestion import DataIngestion; from networksecurity.components.data_validation
+      import DataValidation; from networksecurity.components.data_transformation import
+      DataTransformation; from networksecurity.components.model_trainer import ModelTrainer;
+      cfg=TrainingPipelineConfig(); di=DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion();
+      dv=DataValidation(di, DataValidationConfig(cfg)).initiate_data_validation();
+      dt=DataTransformation(dv, DataTransformationConfig(cfg)).initiate_data_transformation();
+      ModelTrainer(dt, ModelTrainerConfig(cfg)).initiate_model_trainer();"
+    deps:
+    - path: Artifacts/data_transformation
+      hash: md5
+      md5: 6e9f55b6e4657071e72b5c2757071b1f.dir
+      size: 5131009
+      nfiles: 3
+    - path: networksecurity/components/model_trainer.py
+      hash: md5
+      md5: 55fcfce7710cc3d339e9ea9360e8d7de
+      size: 7387
+    - path: networksecurity/constants/training_pipeline/__init__.py
+      hash: md5
+      md5: fa270df3a5b07f2d16104b2c165f2a28
+      size: 2194
+    - path: networksecurity/entity/config_entity.py
+      hash: md5
+      md5: 7b4391ac0d93667be216cc79c468cf2a
+      size: 4260
+    - path: networksecurity/utils/common.py
+      hash: md5
+      md5: 73ea3700ef4ccaaa50dd0b437518a1fa
+      size: 3476
+    - path: networksecurity/utils/ml_utils/metric/classification_metric.py
+      hash: md5
+      md5: 2f3c54d73a6211c32a45690d023fb8f5
+      size: 824
+    - path: networksecurity/utils/ml_utils/model/estimator.py
+      hash: md5
+      md5: 079866979b8a54cf91a79bd46840a2ce
+      size: 761
+    outs:
+    - path: Artifacts/model_trainer
+      hash: md5
+      md5: 8beb6ee035428d530eb4aadc69a744b9.dir
+      size: 6052990
+      nfiles: 1
+    - path: final_model/model.pkl
+      hash: md5
+      md5: 18d669c9dd9d1f0291b9a8f32138c6cb
+      size: 3663911

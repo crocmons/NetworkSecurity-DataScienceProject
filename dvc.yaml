@@ -1,8 +1,10 @@
 stages:
   data_ingestion:
-    cmd: "python -c \"\n    from networksecurity.entity.config_entity import TrainingPipelineConfig,
-      DataIngestionConfig; \n    from networksecurity.components.data_ingestion import
-      DataIngestion; cfg=TrainingPipelineConfig(); \n    DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion()\""
+    cmd: python -c "from networksecurity.entity.config_entity import 
+      TrainingPipelineConfig, DataIngestionConfig; from 
+      networksecurity.components.data_ingestion import DataIngestion; 
+      cfg=TrainingPipelineConfig(); 
+      DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion();"
     deps:
     - networksecurity/components/data_ingestion.py
     - networksecurity/constants/training_pipeline/__init__.py
@@ -11,11 +13,13 @@ stages:
     outs:
     - Artifacts/data_ingestion
   data_validation:
-    cmd: "python -c \"\n    from networksecurity.entity.config_entity import TrainingPipelineConfig,
-      DataValidationConfig, DataIngestionConfig; \n    from networksecurity.components.data_ingestion
-      import DataIngestion; \n    from networksecurity.components.data_validation
-      import DataValidation; \n    cfg=TrainingPipelineConfig();\n    di=DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion();\n\
-      \    DataValidation(di, DataValidationConfig(cfg)).initiate_data_validation()\""
+    cmd: python -c "from networksecurity.entity.config_entity import 
+      TrainingPipelineConfig, DataValidationConfig, DataIngestionConfig; from 
+      networksecurity.components.data_ingestion import DataIngestion; from 
+      networksecurity.components.data_validation import DataValidation; 
+      cfg=TrainingPipelineConfig(); 
+      di=DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion(); 
+      DataValidation(di, DataValidationConfig(cfg)).initiate_data_validation();"
     deps:
     - Artifacts/data_ingestion
     - data_schema/schema.yaml
@@ -26,13 +30,17 @@ stages:
     outs:
     - Artifacts/data_validation
   data_transformation:
-    cmd: "python -c \"\n    from networksecurity.entity.config_entity import TrainingPipelineConfig,
-      DataValidationConfig, DataTransformationConfig; \n    from networksecurity.components.data_ingestion
-      import DataIngestion; \n    from networksecurity.components.data_validation
-      import DataValidation; \n    from networksecurity.components.data_transformation
-      import DataTransformation;\n    cfg=TrainingPipelineConfig();\n    di=DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion();\n\
-      \    dv=DataValidation(di, DataValidationConfig(cfg)).initiate_data_validation();\n\
-      \    DataTransformation(dv, DataTransformationConfig(cfg)).initiate_data_transformation()\""
+    cmd: python -c "from networksecurity.entity.config_entity import 
+      TrainingPipelineConfig, DataIngestionConfig, DataValidationConfig, DataTransformationConfig; 
+      from networksecurity.components.data_ingestion import DataIngestion; from 
+      networksecurity.components.data_validation import DataValidation; from 
+      networksecurity.components.data_transformation import DataTransformation; 
+      cfg=TrainingPipelineConfig(); 
+      di=DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion(); 
+      dv=DataValidation(di, 
+      DataValidationConfig(cfg)).initiate_data_validation(); 
+      DataTransformation(dv, 
+      DataTransformationConfig(cfg)).initiate_data_transformation();"
     deps:
     - Artifacts/data_validation
     - networksecurity/components/data_transformation.py
@@ -42,3 +50,28 @@ stages:
     outs:
     - Artifacts/data_transformation
     - final_model/preprocessor.pkl
+  model_trainer:
+    cmd: python -c "from networksecurity.entity.config_entity import 
+      TrainingPipelineConfig, DataIngestionConfig, DataValidationConfig, DataTransformationConfig, 
+      ModelTrainerConfig; from networksecurity.components.data_ingestion import 
+      DataIngestion; from networksecurity.components.data_validation import 
+      DataValidation; from networksecurity.components.data_transformation import
+      DataTransformation; from networksecurity.components.model_trainer import 
+      ModelTrainer; cfg=TrainingPipelineConfig(); 
+      di=DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion(); 
+      dv=DataValidation(di, 
+      DataValidationConfig(cfg)).initiate_data_validation(); 
+      dt=DataTransformation(dv, 
+      DataTransformationConfig(cfg)).initiate_data_transformation(); 
+      ModelTrainer(dt, ModelTrainerConfig(cfg)).initiate_model_trainer();"
+    deps:
+    - Artifacts/data_transformation
+    - networksecurity/components/model_trainer.py
+    - networksecurity/constants/training_pipeline/__init__.py
+    - networksecurity/entity/config_entity.py
+    - networksecurity/utils/common.py
+    - networksecurity/utils/ml_utils/metric/classification_metric.py
+    - networksecurity/utils/ml_utils/model/estimator.py
+    outs:
+    - Artifacts/model_trainer
+    - final_model/model.pkl

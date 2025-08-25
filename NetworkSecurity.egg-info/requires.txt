@@ -7,8 +7,10 @@ scikit-learn
 PyYAML
 pymongo
 cryptography
-mlflow==2.22.1
+mlflow<3,>=2
+dvc
 dagshub
+dvc-s3
 fastapi
 uvicorn
 python-multipart
