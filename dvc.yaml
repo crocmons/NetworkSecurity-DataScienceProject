@@ -1,0 +1,27 @@
+stages:
+  data_ingestion:
+    cmd: "python -c \"\n    from networksecurity.entity.config_entity import TrainingPipelineConfig,
+      DataIngestionConfig; \n    from networksecurity.components.data_ingestion import
+      DataIngestion; cfg=TrainingPipelineConfig(); \n    DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion()\""
+    deps:
+    - networksecurity/components/data_ingestion.py
+    - networksecurity/constants/training_pipeline/__init__.py
+    - networksecurity/entity/config_entity.py
+    - networksecurity/utils/common.py
+    outs:
+    - Artifacts/data_ingestion
+  data_validation:
+    cmd: "python -c \"\n    from networksecurity.entity.config_entity import TrainingPipelineConfig,
+      DataValidationConfig, DataIngestionConfig; \n    from networksecurity.components.data_ingestion
+      import DataIngestion; \n    from networksecurity.components.data_validation
+      import DataValidation; \n    cfg=TrainingPipelineConfig();\n    di=DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion();\n\
+      \    DataValidation(di, DataValidationConfig(cfg)).initiate_data_validation()\""
+    deps:
+    - Artifacts/data_ingestion
+    - data_schema/schema.yaml
+    - networksecurity/components/data_validation.py
+    - networksecurity/constants/training_pipeline/__init__.py
+    - networksecurity/entity/config_entity.py
+    - networksecurity/utils/common.py
+    outs:
+    - Artifacts/data_validation
