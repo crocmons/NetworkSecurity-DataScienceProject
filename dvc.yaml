@@ -25,3 +25,20 @@ stages:
     - networksecurity/utils/common.py
     outs:
     - Artifacts/data_validation
+  data_transformation:
+    cmd: "python -c \"\n    from networksecurity.entity.config_entity import TrainingPipelineConfig,
+      DataValidationConfig, DataTransformationConfig; \n    from networksecurity.components.data_ingestion
+      import DataIngestion; \n    from networksecurity.components.data_validation
+      import DataValidation; \n    from networksecurity.components.data_transformation
+      import DataTransformation;\n    cfg=TrainingPipelineConfig();\n    di=DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion();\n\
+      \    dv=DataValidation(di, DataValidationConfig(cfg)).initiate_data_validation();\n\
+      \    DataTransformation(dv, DataTransformationConfig(cfg)).initiate_data_transformation()\""
+    deps:
+    - Artifacts/data_validation
+    - networksecurity/components/data_transformation.py
+    - networksecurity/constants/training_pipeline/__init__.py
+    - networksecurity/entity/config_entity.py
+    - networksecurity/utils/common.py
+    outs:
+    - Artifacts/data_transformation
+    - final_model/preprocessor.pkl
