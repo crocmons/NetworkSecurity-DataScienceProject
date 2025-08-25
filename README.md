@@ -119,3 +119,11 @@ dvc stage add -n model_trainer \
     -o final_model/model.pkl \
     python -c "from networksecurity.entity.config_entity import TrainingPipelineConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig; from networksecurity.components.data_ingestion import DataIngestion; from networksecurity.components.data_validation import DataValidation; from networksecurity.components.data_transformation import DataTransformation; from networksecurity.components.model_trainer import ModelTrainer; cfg=TrainingPipelineConfig(); di=DataIngestion(DataIngestionConfig(cfg)).initiate_data_ingestion(); dv=DataValidation(di, DataValidationConfig(cfg)).initiate_data_validation(); dt=DataTransformation(dv, DataTransformationConfig(cfg)).initiate_data_transformation(); ModelTrainer(dt, ModelTrainerConfig(cfg)).initiate_model_trainer();"
 
+dvc remote s3 setup cmd from dagshub repo
+dvc setup credentials cmd need to take it from dagshub repo
+
+dvc pull -r origin
+
+dvc push -r origin
+
+then follow the git setps to upload the current changes with dvc
