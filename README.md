@@ -128,4 +128,4 @@ dvc pull -r origin
 
 dvc push -r origin
 
-then follow the git setps to upload the current changes with dvc
+then follow the git setps to push the current changes with dvc
