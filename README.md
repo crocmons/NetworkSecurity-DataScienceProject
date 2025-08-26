@@ -2,6 +2,23 @@
 
 ### Network Security Projects For Phising Data
 
+### Brief Description
+
+This project builds an end-to-end machine learning pipeline to detect phishing/network threats from tabular network data. It implements reproducible data and model workflows using DVC, tracks experiments with MLflow, and provides batch prediction capability. The pipeline ingests raw data from MongoDB, validates schema and drift, transforms features with robust preprocessing, trains and evaluates classification models, and stores versioned artifacts for traceability.
+
+- **Goal**: Classify network events (phishing vs. legitimate) with reliable, reproducible MLOps.
+- **Data**: Network/URL features (e.g., `phisingData.csv`) sourced via MongoDB and stored under `Artifacts/`.
+- **Pipeline**:
+  - Data Ingestion → Data Validation (schema + drift) → Data Transformation (imputation, encoding) → Model Training (multiple classifiers, metrics)
+  - Managed with DVC stages and cached artifacts.
+- **Experiment Tracking**: MLflow logs metrics (F1, precision, recall) and registers models.
+- **Artifacts**: Versioned datasets, preprocessing objects, trained models in `Artifacts/` and `final_model/`.
+- **Batch Inference**: Predict on new CSVs; outputs saved under `predicted_output/`.
+- **Tech Stack**: Python, scikit-learn, DVC, MLflow, MongoDB,AWS EC2, Pandas, NumPy, FastAPI (optional serving), Docker (optional).
+- **Reproducibility**: Deterministic configs in `params.yaml` and constants, with DVC `dvc.yaml` driving stage execution.
+- **Extensible**: Clear component modules (`networksecurity/components/`) to plug new features/models or deploy via API.
+
+
 Setup github secrets:
 AWS_ACCESS_KEY_ID=
 
